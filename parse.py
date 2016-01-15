@@ -20,6 +20,7 @@ tokens = t.tokenize(input_line.decode('utf-8'))
 lis=[]
 i=0
 dict={}
+areaDict={}
 
 for token in tokens:
 	lis.append(str(token))
@@ -29,6 +30,8 @@ for i in range(len(lis)):
 	if dict[i][3]=="地域":
 		cur.execute("SELECT * FROM station WHERE station.name=\""+dict[i][7]+"\";")
 		for name in cur.fetchall():
-			geo.search(dict[i][7].decode('utf-8'));
+			if dict[i][7] not in areaDict:
+				areaDict[dict[i][7]]=i
+				geo.search(dict[i][7].decode('utf-8'));
 			break;
 
